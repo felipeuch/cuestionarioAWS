@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Cloud Practitioner Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Pantalla de Inicio -->
+        <div id="start-screen" class="screen active">
+            <div class="logo-container">
+                <h1>Práctica AWS</h1>
+                <p>Cloud Practitioner</p>
+            </div>
+            <p class="description">Pon a prueba tus conocimientos con este quiz interactivo. Tendrás <strong>120 minutos</strong> para completarlo y comprender el porqué de cada respuesta.</p>
+            <button id="start-btn" class="primary-btn pulse">¡Comenzar el Quiz!</button>
+        </div>
+
+        <!-- Pantalla del Quiz -->
+        <div id="quiz-screen" class="screen hidden">
+            <div class="header">
+                <div class="progress-container">
+                    <span id="question-counter">Pregunta 1 de X</span>
+                </div>
+                <div class="timer-container">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="timer">120:00</span>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <h2 id="question-text">Cargando pregunta...</h2>
+            </div>
+
+            <div id="options-grid" class="options-grid">
+                <!-- Las alternativas se inyectan dinámicamente aquí -->
+            </div>
+            
+            <div id="feedback-container" class="feedback-container hidden">
+                <div id="feedback-header" class="feedback-header">
+                    <h3 id="feedback-title">¡Correcto!</h3>
+                </div>
+                <div class="explanations">
+                    <div class="correct-explanation">
+                        <h4>✅ Por qué es la opción correcta:</h4>
+                        <p id="correct-reason"></p>
+                    </div>
+                    <div class="incorrect-explanations">
+                        <h4>❌ Por qué las demás son incorrectas:</h4>
+                        <ul id="incorrect-reasons"></ul>
+                    </div>
+                </div>
+                <button id="next-btn" class="primary-btn">Siguiente Pregunta ➡️</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Resultados -->
+        <div id="result-screen" class="screen hidden">
+            <h2 class="result-title">¡Quiz Terminado!</h2>
+            <div class="score-card">
+                <p>Tu puntuación final es:</p>
+                <div class="score-circle">
+                    <span id="final-score">0</span>
+                    <span class="score-divider">/</span>
+                    <span id="total-questions">0</span>
+                </div>
+            </div>
+            <button id="restart-btn" class="primary-btn pulse">Volver a Intentar 🔄</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="q_pool_1.js"></script>
+    <script src="q_pool_2.js"></script>
+    <script src="q_pool_3.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
