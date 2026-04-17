@@ -69,6 +69,7 @@ let score = 0;
 let timeRemaining = TIME_LIMIT;
 let timerInterval;
 let selectedOptions = []; // Mantiene el rastro de las selecciones múltiples
+let selectedTestPool = null;
 
 // Referencias del DOM
 const startScreen = document.getElementById('start-screen');
@@ -97,17 +98,175 @@ function init() {
     startBtn.addEventListener('click', startQuiz);
     nextBtn.addEventListener('click', handleNextQuestion);
     restartBtn.addEventListener('click', resetQuiz);
+    setupTestSelection();
+}
+
+function preparePools() {
+    const raws = [
+        window.rawTest1 || '',
+        window.rawTest2 || '',
+        window.rawTest3 || '',
+        window.rawTest4 || '',
+        window.rawTest5 || ''
+    ];
+    
+    const allAnswers = [];
+    raws.forEach(raw => {
+        if(!raw) return;
+        const lines = raw.trim().split('\n');
+        lines.forEach(line => {
+            const parts = line.split('\t');
+            if(parts.length >= 4) {
+                const corrects = parts.slice(3).join('\t').split(' / ').map(t => t.trim().replace(/^"|"$/g, ''));
+                allAnswers.push(...corrects);
+            }
+        });
+    });
+    
+    const uniqueAnswers = Array.from(new Set(allAnswers));
+    
+    const parse = (raw) => {
+        if(!raw) return [];
+        const parsed = [];
+        const lines = raw.trim().split('\n');
+        lines.forEach(line => {
+            const parts = line.split('\t');
+            if(parts.length >= 4) {
+                const question = parts[1].trim().replace(/^"|"$/g, '');
+                const corrects = parts.slice(3).join('\t').split(' / ').map(t => t.trim().replace(/^"|"$/g, ''));
+                
+                const options = corrects.map(t => ({ text: t, isCorrect: true, explanation: "Correcto." }));
+                
+                const numNeeds = corrects.length > 1 ? 5 : 4;
+                const distractors = [];
+                let shuffledUnique = [...uniqueAnswers].sort(() => 0.5 - Math.random());
+                
+                for(let ans of shuffledUnique) {
+                    if(!corrects.includes(ans)) {
+                        distractors.push({ text: ans, isCorrect: false, explanation: "Incorrecto." });
+                    }
+                    if(distractors.length >= (numNeeds - corrects.length)) break;
+                }
+                
+                const finalOptions = [...options, ...distractors].sort(() => 0.5 - Math.random());
+                parsed.push({ question, options: finalOptions });
+            }
+        });
+        return parsed;
+    };
+    
+    window.test1Questions = parse(raws[0]);
+    window.test2Questions = parse(raws[1]);
+    window.test3Questions = parse(raws[2]);
+    window.test4Questions = parse(raws[3]);
+    window.test5Questions = parse(raws[4]);
+}
+
+function setupTestSelection() {
+    preparePools();
+
+    const pools = [
+        window.test1Questions || [],
+        window.test2Questions || [],
+        window.test3Questions || [],
+        window.test4Questions || [],
+        window.test5Questions || []
+    ];
+
+    const testBtns = document.querySelectorAll('.test-btn');
+    const selectedTestInfo = document.getElementById('selected-test-info');
+    
+    // Set initial look
+    testBtns.forEach(btn => btn.style.opacity = '0.7');
+
+    testBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Limpiar seleccion previa
+            testBtns.forEach(b => {
+                b.style.opacity = '0.7';
+                b.style.outline = 'none';
+            });
+
+            // Resaltar sin cambiar el tamaño para no desacomodar la grilla
+            btn.style.opacity = '1';
+            
+            // Solo aplicar outline si es uno de los gris/blanco, pero no al aleatorio que ya es llamativo
+            if(btn.getAttribute('data-test') !== 'random') {
+                btn.style.outline = '3px solid var(--primary-color, #ff9900)';
+                btn.style.outlineOffset = '-3px';
+            } else {
+                btn.style.outline = '3px solid #fff';
+                btn.style.outlineOffset = '-3px';
+            }
+            
+            const testId = btn.getAttribute('data-test');
+            playSound('click'); 
+
+            if(testId === 'random') {
+                selectedTestInfo.textContent = 'Seleccionado: Quiz Aleatorio';
+                selectedTestPool = 'random';
+                selectedTestInfo.style.color = '#e07a00';
+            } else {
+                const pIndex = parseInt(testId) - 1;
+                const pLength = pools[pIndex].length;
+                selectedTestInfo.textContent = `Seleccionado: Test ${testId}`;
+                selectedTestPool = pools[pIndex];
+                
+                if(pLength === 0) {
+                    selectedTestInfo.textContent += ' - ¡Cargando preguntas!';
+                    selectedTestInfo.style.color = 'var(--incorrect-color)';
+                } else {
+                    selectedTestInfo.style.color = '#e07a00';
+                }
+            }
+
+            startBtn.style.opacity = '1';
+            startBtn.style.cursor = 'pointer';
+            startBtn.style.pointerEvents = 'auto';
+        });
+    });
 }
 
 function startQuiz() {
+    if(!selectedTestPool) return;
+    
+    if(Array.isArray(selectedTestPool) && selectedTestPool.length === 0) {
+        alert('El test seleccionado aún no tiene preguntas cargadas. Por favor agrega preguntas o elige otro test.');
+        return;
+    }
+    
     playSound('click'); // Inicializar Engine de audio
     startScreen.classList.add('hidden');
     quizScreen.classList.remove('hidden');
     
-    // Mezclar todas las preguntas antes de empezar y seleccionar 65
-    if (window.quizQuestions) {
+    if(selectedTestPool === 'random') {
+        const pools = [
+            window.test1Questions || [],
+            window.test2Questions || [],
+            window.test3Questions || [],
+            window.test4Questions || [],
+            window.test5Questions || []
+        ];
+        
+        let allQuestions = [];
+        pools.forEach(pool => {
+            allQuestions = allQuestions.concat(pool);
+        });
+        
+        const uniqueQuestions = [];
+        const seenTexts = new Set();
+        allQuestions.forEach(q => {
+            if(!seenTexts.has(q.question)) {
+                seenTexts.add(q.question);
+                uniqueQuestions.push(q);
+            }
+        });
+        
+        shuffleArray(uniqueQuestions);
+        window.quizQuestions = uniqueQuestions.slice(0, 65);
+    } else {
+        window.quizQuestions = [...selectedTestPool];
         shuffleArray(window.quizQuestions);
-        window.quizQuestions = window.quizQuestions.slice(0, 65);
     }
     
     startTimer();

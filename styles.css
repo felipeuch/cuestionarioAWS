@@ -1,17 +1,26 @@
 :root {
     --bg-color: #f2f2f2;
-    --primary-color: #46178f; /* Morado estilo Kahoot */
-    --secondary-color: #eb670f; /* Naranja complemento */
+    --primary-color: #46178f;
+    /* Morado estilo Kahoot */
+    --secondary-color: #eb670f;
+    /* Naranja complemento */
     --text-color: #333333;
     --white: #ffffff;
-    --correct-color: #26890c; /* Verde éxito */
-    --incorrect-color: #e21b3c; /* Rojo error */
+    --correct-color: #26890c;
+    /* Verde éxito */
+    --incorrect-color: #e21b3c;
+    /* Rojo error */
     /* Colores vibrantes para botones tipo Kahoot */
-    --option-1: #e21b3c; /* Rojo */
-    --option-2: #1368ce; /* Azul */
-    --option-3: #d89e00; /* Amarillo oscuro */
-    --option-4: #26890c; /* Verde */
-    --option-5: #eb670f; /* Naranja */
+    --option-1: #e21b3c;
+    /* Rojo */
+    --option-2: #1368ce;
+    /* Azul */
+    --option-3: #d89e00;
+    /* Amarillo oscuro */
+    --option-4: #26890c;
+    /* Verde */
+    --option-5: #eb670f;
+    /* Naranja */
     --font-main: 'Montserrat', sans-serif;
 }
 
@@ -60,8 +69,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --- Pantalla de Inicio --- */
@@ -76,7 +92,7 @@ body {
     font-weight: 800;
     color: var(--primary-color);
     margin-bottom: 5px;
-    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .logo-container p {
@@ -123,9 +139,17 @@ body {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* --- Pantalla del Quiz --- */
@@ -187,7 +211,7 @@ body {
     font-weight: 600;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 6px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3);
     transition: opacity 0.2s, transform 0.1s;
     display: flex;
     align-items: center;
@@ -201,7 +225,7 @@ body {
 
 .option-btn:active:not(:disabled) {
     transform: translateY(6px);
-    box-shadow: 0 0 0 rgba(0,0,0,0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 .option-btn:hover:not(:disabled) {
@@ -215,22 +239,55 @@ body {
 }
 
 /* Colores específicos de los botones */
-.opt-0 { background-color: var(--option-1); box-shadow: 0 6px 0 #b0152e; }
-.opt-1 { background-color: var(--option-2); box-shadow: 0 6px 0 #0e50a0; }
-.opt-2 { background-color: var(--option-3); box-shadow: 0 6px 0 #a37700; }
-.opt-3 { background-color: var(--option-4); box-shadow: 0 6px 0 #1b6308; }
-.opt-4 { background-color: var(--option-5); box-shadow: 0 6px 0 #b84c05; }
+.opt-0 {
+    background-color: var(--option-1);
+    box-shadow: 0 6px 0 #b0152e;
+}
 
-.opt-0:active:not(:disabled) { box-shadow: 0 0 0 #b0152e; }
-.opt-1:active:not(:disabled) { box-shadow: 0 0 0 #0e50a0; }
-.opt-2:active:not(:disabled) { box-shadow: 0 0 0 #a37700; }
-.opt-3:active:not(:disabled) { box-shadow: 0 0 0 #1b6308; }
-.opt-4:active:not(:disabled) { box-shadow: 0 0 0 #b84c05; }
+.opt-1 {
+    background-color: var(--option-2);
+    box-shadow: 0 6px 0 #0e50a0;
+}
+
+.opt-2 {
+    background-color: var(--option-3);
+    box-shadow: 0 6px 0 #a37700;
+}
+
+.opt-3 {
+    background-color: var(--option-4);
+    box-shadow: 0 6px 0 #1b6308;
+}
+
+.opt-4 {
+    background-color: var(--option-5);
+    box-shadow: 0 6px 0 #b84c05;
+}
+
+.opt-0:active:not(:disabled) {
+    box-shadow: 0 0 0 #b0152e;
+}
+
+.opt-1:active:not(:disabled) {
+    box-shadow: 0 0 0 #0e50a0;
+}
+
+.opt-2:active:not(:disabled) {
+    box-shadow: 0 0 0 #a37700;
+}
+
+.opt-3:active:not(:disabled) {
+    box-shadow: 0 0 0 #1b6308;
+}
+
+.opt-4:active:not(:disabled) {
+    box-shadow: 0 0 0 #b84c05;
+}
 
 /* Animaciones de aciertos y errores */
 .option-btn.correct-anim {
     border: 5px solid var(--white);
-    box-shadow: 0 0 15px var(--correct-color), 0 6px 0 rgba(0,0,0,0.2) !important;
+    box-shadow: 0 0 15px var(--correct-color), 0 6px 0 rgba(0, 0, 0, 0.2) !important;
     opacity: 1 !important;
     z-index: 2;
     transform: scale(1.02);
@@ -238,7 +295,7 @@ body {
 
 .option-btn.wrong-anim {
     opacity: 0.3 !important;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.2) !important;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2) !important;
     transform: translateY(4px);
 }
 
@@ -249,12 +306,19 @@ body {
     border-radius: 15px;
     margin-top: 10px;
     animation: slideUp 0.5s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .feedback-header {
@@ -269,8 +333,13 @@ body {
     font-weight: 800;
 }
 
-#feedback-title.correct { color: var(--correct-color); }
-#feedback-title.incorrect { color: var(--incorrect-color); }
+#feedback-title.correct {
+    color: var(--correct-color);
+}
+
+#feedback-title.incorrect {
+    color: var(--incorrect-color);
+}
 
 .explanations h4 {
     margin-bottom: 12px;
@@ -348,7 +417,7 @@ body {
     padding: 40px;
     border-radius: 20px;
     margin-bottom: 40px;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
     width: 100%;
     max-width: 400px;
 }
@@ -373,7 +442,7 @@ body {
     font-size: 3.5rem;
     font-weight: 800;
     box-shadow: 0 10px 20px rgba(70, 23, 143, 0.4);
-    border: 6px solid rgba(255,255,255,0.8);
+    border: 6px solid rgba(255, 255, 255, 0.8);
 }
 
 .score-divider {
@@ -387,7 +456,7 @@ body {
     .options-grid {
         grid-template-columns: 1fr;
     }
-    
+
     #app {
         border-radius: 0;
         min-height: 100vh;

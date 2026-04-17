@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
         <!-- Pantalla de Inicio -->
@@ -15,8 +17,29 @@
                 <h1>Práctica AWS</h1>
                 <p>Cloud Practitioner</p>
             </div>
-            <p class="description">Pon a prueba tus conocimientos con este quiz interactivo. Tendrás <strong>120 minutos</strong> para completarlo y comprender el porqué de cada respuesta.</p>
-            <button id="start-btn" class="primary-btn pulse">¡Comenzar el Quiz!</button>
+            <p class="description">Pon a prueba tus conocimientos con este quiz interactivo. Tendrás <strong>120
+                    minutos</strong> para completarlo y comprender el porqué de cada respuesta.</p>
+
+            <div style="margin-top: 2rem; margin-bottom: 2rem;">
+                <h3 style="text-align: center; margin-bottom: 1rem; color: #2d3748; font-size: 1.1rem;">Selecciona un
+                    Test para comenzar:</h3>
+                <div id="test-selector-grid" class="options-grid">
+                    <button class="option-btn opt-0 test-btn" data-test="1"><span>Test 1</span></button>
+                    <button class="option-btn opt-1 test-btn" data-test="2"><span>Test 2</span></button>
+                    <button class="option-btn opt-2 test-btn" data-test="3"><span>Test 3</span></button>
+                    <button class="option-btn opt-3 test-btn" data-test="4"><span>Test 4</span></button>
+                    <button class="option-btn opt-4 test-btn" data-test="5"><span>Test 5</span></button>
+                    <button class="primary-btn test-btn" data-test="random"
+                        style="margin: 0; padding: 1rem; width: 100%; border-radius: 12px; font-weight: bold;"><span>Quiz
+                            Aleatorio</span></button>
+                </div>
+                <p id="selected-test-info"
+                    style="text-align: center; margin-top: 1.5rem; font-weight: 600; color: #e07a00; min-height: 24px;">
+                    Por favor, selecciona un test arriba</p>
+            </div>
+
+            <button id="start-btn" class="primary-btn pulse"
+                style="cursor: not-allowed; pointer-events: none;">¡Comenzar el Quiz!</button>
         </div>
 
         <!-- Pantalla del Quiz -->
@@ -38,7 +61,7 @@
             <div id="options-grid" class="options-grid">
                 <!-- Las alternativas se inyectan dinámicamente aquí -->
             </div>
-            
+
             <div id="feedback-container" class="feedback-container hidden">
                 <div id="feedback-header" class="feedback-header">
                     <h3 id="feedback-title">¡Correcto!</h3>
@@ -76,6 +99,9 @@
     <script src="q_pool_1.js"></script>
     <script src="q_pool_2.js"></script>
     <script src="q_pool_3.js"></script>
+    <script src="q_pool_4.js"></script>
+    <script src="q_pool_5.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
