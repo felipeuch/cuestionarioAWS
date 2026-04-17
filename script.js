@@ -102,64 +102,7 @@ function init() {
 }
 
 function preparePools() {
-    const raws = [
-        window.rawTest1 || '',
-        window.rawTest2 || '',
-        window.rawTest3 || '',
-        window.rawTest4 || '',
-        window.rawTest5 || ''
-    ];
-    
-    const allAnswers = [];
-    raws.forEach(raw => {
-        if(!raw) return;
-        const lines = raw.trim().split('\n');
-        lines.forEach(line => {
-            const parts = line.split('\t');
-            if(parts.length >= 4) {
-                const corrects = parts.slice(3).join('\t').split(' / ').map(t => t.trim().replace(/^"|"$/g, ''));
-                allAnswers.push(...corrects);
-            }
-        });
-    });
-    
-    const uniqueAnswers = Array.from(new Set(allAnswers));
-    
-    const parse = (raw) => {
-        if(!raw) return [];
-        const parsed = [];
-        const lines = raw.trim().split('\n');
-        lines.forEach(line => {
-            const parts = line.split('\t');
-            if(parts.length >= 4) {
-                const question = parts[1].trim().replace(/^"|"$/g, '');
-                const corrects = parts.slice(3).join('\t').split(' / ').map(t => t.trim().replace(/^"|"$/g, ''));
-                
-                const options = corrects.map(t => ({ text: t, isCorrect: true, explanation: "Correcto." }));
-                
-                const numNeeds = corrects.length > 1 ? 5 : 4;
-                const distractors = [];
-                let shuffledUnique = [...uniqueAnswers].sort(() => 0.5 - Math.random());
-                
-                for(let ans of shuffledUnique) {
-                    if(!corrects.includes(ans)) {
-                        distractors.push({ text: ans, isCorrect: false, explanation: "Incorrecto." });
-                    }
-                    if(distractors.length >= (numNeeds - corrects.length)) break;
-                }
-                
-                const finalOptions = [...options, ...distractors].sort(() => 0.5 - Math.random());
-                parsed.push({ question, options: finalOptions });
-            }
-        });
-        return parsed;
-    };
-    
-    window.test1Questions = parse(raws[0]);
-    window.test2Questions = parse(raws[1]);
-    window.test3Questions = parse(raws[2]);
-    window.test4Questions = parse(raws[3]);
-    window.test5Questions = parse(raws[4]);
+    // Las preguntas ahora se cargan estructuradas directamente desde q_pool_X.js
 }
 
 function setupTestSelection() {
@@ -170,7 +113,8 @@ function setupTestSelection() {
         window.test2Questions || [],
         window.test3Questions || [],
         window.test4Questions || [],
-        window.test5Questions || []
+        window.test5Questions || [],
+        window.test6Questions || []
     ];
 
     const testBtns = document.querySelectorAll('.test-btn');
@@ -245,7 +189,8 @@ function startQuiz() {
             window.test2Questions || [],
             window.test3Questions || [],
             window.test4Questions || [],
-            window.test5Questions || []
+            window.test5Questions || [],
+            window.test6Questions || []
         ];
         
         let allQuestions = [];
