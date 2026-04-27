@@ -114,7 +114,8 @@ function setupTestSelection() {
         window.test3Questions || [],
         window.test4Questions || [],
         window.test5Questions || [],
-        window.test6Questions || []
+        window.test6Questions || [],
+        window.test7Questions || []
     ];
 
     const testBtns = document.querySelectorAll('.test-btn');
@@ -190,7 +191,8 @@ function startQuiz() {
             window.test3Questions || [],
             window.test4Questions || [],
             window.test5Questions || [],
-            window.test6Questions || []
+            window.test6Questions || [],
+            window.test7Questions || []
         ];
         
         let allQuestions = [];
