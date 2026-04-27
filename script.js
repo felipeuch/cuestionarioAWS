@@ -61,7 +61,7 @@ function playSound(type) {
 }
 
 // Constantes
-const TIME_LIMIT = 120 * 60; // 120 minutos en segundos
+const TIME_LIMIT = 90 * 60; // 90 minutos en segundos
 
 // Estado Global
 let currentQuestionIndex = 0;
